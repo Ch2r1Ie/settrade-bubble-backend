@@ -1,12 +1,9 @@
 package config
 
 const (
+	environment = "APP_ENV"
+	timezone    = "APP_TIME_LOCATION"
 	app_prefix  = "APP_NAME"
-	apiKey      = "API_KEY"
-	timezone    = "TIME_LOCATION"
-	hostname    = "HOST_NAME"
-	port        = "PORT"
-	environment = "ENV"
 )
 
 const (
@@ -23,4 +20,14 @@ const (
 	Dev   string = "DEV"
 	UAT   string = "UAT"
 	Prod  string = "PROD"
+)
+
+const (
+	hostname = "HOST_NAME"
+	port     = "PORT"
+)
+
+const (
+	GOMAXPROCS = "APP_GOMAXPROCS"
+	GOMEMLIMIT = "APP_GOMEMLIMIT"
 )

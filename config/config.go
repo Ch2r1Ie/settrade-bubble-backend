@@ -13,15 +13,16 @@ type Config struct {
 	AccessControl AccessControl
 	Database      Database
 	Header        Header
-	ApiKey        string
 }
 
 func Init() *Config {
 
 	config(localhost_path, secret_path)
+	enviroment(os.Getenv(environment))
 	location(os.Getenv(timezone))
-	enviroment(os.Getenv(app_prefix))
-	appCfg := initAppCfg(os.Getenv(app_prefix))
+
+	prefix := os.Getenv(app_prefix)
+	appCfg := initAppCfg(prefix)
 
 	return appCfg
 }
@@ -47,12 +48,12 @@ func location(timezone string) {
 }
 
 func initAppCfg(prefix string) *Config {
+
 	return &Config{
 		Server: Server{
 			Hostname: os.Getenv(connected(prefix, hostname)),
 			Port:     os.Getenv(connected(prefix, port)),
 		},
-		ApiKey: os.Getenv(connected(prefix, apiKey)),
 	}
 }
 

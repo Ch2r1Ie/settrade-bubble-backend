@@ -1,14 +1,13 @@
 package config
 
 import (
-	"os"
 	"strings"
 )
 
 var Env string
 
-func enviroment(prefix string) {
-	Env = os.Getenv(connected(prefix, environment))
+func enviroment(environment string) {
+	Env = environment
 }
 
 func IsLocalEnv() bool {
