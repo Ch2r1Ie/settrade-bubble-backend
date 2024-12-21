@@ -18,14 +18,15 @@ type Config struct {
 
 func Init() *Config {
 
-	env()
+	config(localhost_path, secret_path)
 	location(os.Getenv(timezone))
+	enviroment(os.Getenv(app_prefix))
 	appCfg := initAppCfg(os.Getenv(app_prefix))
 
 	return appCfg
 }
 
-func env() {
+func config(localhost_path, secret_path string) {
 
 	if err := godotenv.Load(localhost_path); err != nil {
 		panic("Error loading localhost.configmap.env file")

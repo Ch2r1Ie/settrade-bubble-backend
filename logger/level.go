@@ -16,7 +16,7 @@ var logLevel = map[string]slog.Level{
 var defaultLogLevel = "ERROR"
 var LogLevel slog.Level
 
-func init() {
+func Init() {
 	logLevelConf := strings.ToUpper(os.Getenv("LOG_LEVEL"))
 	if logLevelConf == "" {
 		logLevelConf = defaultLogLevel
