@@ -8,17 +8,21 @@ import (
 	"github.com/joho/godotenv"
 )
 
-type AppConfig struct {
-	apiKey string
+type Config struct {
+	Server        Server
+	AccessControl AccessControl
+	Database      Database
+	Header        Header
+	ApiKey        string
 }
 
-func Init() error {
+func Init() *Config {
 
 	env()
 	location(os.Getenv(timezone))
-	initAppCfg(os.Getenv(app_prefix))
+	appCfg := initAppCfg(os.Getenv(app_prefix))
 
-	return nil
+	return appCfg
 }
 
 func env() {
@@ -41,9 +45,13 @@ func location(timezone string) {
 	log.Printf("Local time zone %v", time.Now().In(ict))
 }
 
-func initAppCfg(prefix string) AppConfig {
-	return AppConfig{
-		apiKey: connected(prefix, os.Getenv(apiKey)),
+func initAppCfg(prefix string) *Config {
+	return &Config{
+		Server: Server{
+			Hostname: os.Getenv(connected(prefix, hostname)),
+			Port:     os.Getenv(connected(prefix, port)),
+		},
+		ApiKey: os.Getenv(connected(prefix, apiKey)),
 	}
 }
 
