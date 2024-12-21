@@ -93,19 +93,7 @@ func router(cfg config.Config) (*gin.Engine, func()) {
 		handlerTimeoutMiddleware,
 	)
 
-	// httpClient := httpclient.NewHTTPClient(app.ForwardRefIDOption)
-	// db := database.NewMySQL(cfg.Database.MySqlURL)
-
-	// {
-	// 	interpermitHTTPSrv := interpermit.NewUserService(httpClient)
-	// 	interpermitStorage := interpermit.NewStorage(db)
-	// 	h := interpermit.NewHandler(interpermitHTTPSrv, interpermitStorage)
-	// 	r.POST("/interpermits", h.PermitTransaction)
-	// }
-
-	return r, func() {
-		// db.Close()
-	}
+	return r, func() {}
 }
 
 func handlerTimeoutMiddleware(c *gin.Context) {
@@ -142,7 +130,7 @@ var headers = []string{
 func accessControl(c *gin.Context) {
 	cfg := config.Init()
 	c.Writer.Header().Set("Access-Control-Allow-Origin", cfg.AccessControl.AllowOrigin)
-	c.Writer.Header().Set("Access-Control-Request-Method", "POST, GET, PUT, OPTIONS")
+	c.Writer.Header().Set("Access-Control-Request-Method", "POST, GET")
 	c.Writer.Header().Set("Access-Control-Allow-Headers", strings.Join(headers, ","))
 	if c.Request.Method == "OPTIONS" {
 		c.AbortWithStatus(204)

@@ -1,11 +1,12 @@
 package config
 
 const (
-	app_prefix = "APP_NAME"
-	apiKey     = "API_KEY"
-	timezone   = "TIME_LOCATION"
-	hostname   = "HOST_NAME"
-	port       = "PORT"
+	app_prefix  = "APP_NAME"
+	apiKey      = "API_KEY"
+	timezone    = "TIME_LOCATION"
+	hostname    = "HOST_NAME"
+	port        = "PORT"
+	environment = "ENV"
 )
 
 const (

@@ -7,8 +7,8 @@ import (
 
 var Env string
 
-func init() {
-	Env = os.Getenv("ENV")
+func enviroment(prefix string) {
+	Env = os.Getenv(connected(prefix, environment))
 }
 
 func IsLocalEnv() bool {
