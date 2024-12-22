@@ -3,6 +3,7 @@ module github.com/Ch2r1Ie/Stock-Bubble
 go 1.23.3
 
 require (
+	github.com/artlevitan/go-tradingview-ta v1.3.2
 	github.com/gin-gonic/gin v1.10.0
 	github.com/go-sql-driver/mysql v1.8.1
 	github.com/google/uuid v1.6.0

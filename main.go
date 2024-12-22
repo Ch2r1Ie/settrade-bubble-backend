@@ -14,6 +14,7 @@ import (
 	"time"
 
 	"github.com/Ch2r1Ie/Stock-Bubble/app"
+	"github.com/Ch2r1Ie/Stock-Bubble/app/set_stock"
 	"github.com/Ch2r1Ie/Stock-Bubble/config"
 	"github.com/gin-gonic/gin"
 
@@ -92,6 +93,13 @@ func router(cfg config.Config) (*gin.Engine, func()) {
 		app.AutoLoggingMiddleware,
 		handlerTimeoutMiddleware,
 	)
+
+	{
+		tradingview := set_stock.NewTrade()
+
+		h := set_stock.NewHandler(tradingview)
+		r.GET("/transaction", h.Transaction)
+	}
 
 	return r, func() {}
 }
