@@ -95,13 +95,11 @@ func router(cfg config.Config) (*gin.Engine, func()) {
 	)
 
 	{
-		yahoo_finance := market_data.NewOpenAPI("")
+		yahoo_finance := market_data.NewOpenAPI(cfg.YahooFinance)
 		h := market_data.NewHandler(yahoo_finance)
 
 		r.POST("/market-data/stock-info", h.StockInfo)
 	}
-
-	// add more handler here below. advice: use group using {} for better readability
 
 	return r, func() {}
 

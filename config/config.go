@@ -13,7 +13,7 @@ type Config struct {
 	AccessControl AccessControl
 	Database      Database
 	Header        Header
-	ApiKey        string
+	YahooFinance  string
 }
 
 func Init() *Config {
@@ -21,6 +21,7 @@ func Init() *Config {
 	config(localhost_path, secret_path)
 	location(os.Getenv(timezone))
 	enviroment(os.Getenv(app_prefix))
+
 	appCfg := initAppCfg(os.Getenv(app_prefix))
 
 	return appCfg
@@ -52,8 +53,9 @@ func initAppCfg(prefix string) *Config {
 			Hostname: os.Getenv(connected(prefix, hostname)),
 			Port:     os.Getenv(connected(prefix, port)),
 		},
-		ApiKey: os.Getenv(connected(prefix, apiKey)),
+		YahooFinance: os.Getenv(connected(prefix, yahoo_finance)),
 	}
+
 }
 
 func connected(prefix, config string) string {

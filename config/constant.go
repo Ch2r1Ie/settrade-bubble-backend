@@ -1,12 +1,13 @@
 package config
 
 const (
-	app_prefix  = "APP_NAME"
-	apiKey      = "API_KEY"
-	timezone    = "TIME_LOCATION"
-	hostname    = "HOST_NAME"
-	port        = "PORT"
-	environment = "ENV"
+	app_prefix    = "APP_NAME"
+	apiKey        = "API_KEY"
+	timezone      = "TIME_LOCATION"
+	hostname      = "HOST_NAME"
+	port          = "PORT"
+	environment   = "ENV"
+	yahoo_finance = "YAHOO_FINANCE_URL"
 )
 
 const (
