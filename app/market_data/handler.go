@@ -5,12 +5,7 @@ import (
 
 	"github.com/Ch2r1Ie/Stock-Bubble/app"
 	"github.com/gin-gonic/gin"
-	"go.uber.org/zap"
 )
-
-type yahooFinance interface {
-	stock(symbol, dateRange, interval string, logger *zap.Logger) (*Stock, error)
-}
 
 type Handler struct {
 	yahoo yahooFinance

@@ -11,6 +11,10 @@ import (
 	"go.uber.org/zap"
 )
 
+type yahooFinance interface {
+	stock(symbol, dateRange, interval string, logger *zap.Logger) (*Stock, error)
+}
+
 type openAPI struct {
 	url string
 }
