@@ -6,21 +6,27 @@ import (
 )
 
 var (
-	Err_Technical = AppError{Code: "2000", Message: "please contact tech support"}
+	Success = AppError{Code: 0000, Message: "Success"}
+)
 
-	Err_BussinessErrors_1 = AppError{Code: "1001", Message: "not Found"}
-	Err_BussinessErrors_2 = AppError{Code: "1004", Message: "invalid request"}
+var (
+	Err_Technical             = AppError{Code: 2000, Message: "please contact tech support"}
+	Err_UnExpected_StatusCode = AppError{Code: 2001, Message: "unexpected status code"}
+	Err_UnExpected_Response   = AppError{Code: 2002, Message: "unexpected response"}
 
-	Err_Unknown = AppError{Code: "9999", Message: "please contact admin"}
+	Err_BussinessErrors_1 = AppError{Code: 1001, Message: "not Found"}
+	Err_BussinessErrors_2 = AppError{Code: 1004, Message: "invalid request"}
+
+	Err_Unknown = AppError{Code: 9999, Message: "please contact admin"}
 )
 
 type AppError struct {
-	Code    string
+	Code    int
 	Message string
 }
 
 func (e *AppError) Error() string {
-	return fmt.Sprintf("app error:%s|%s", e.Code, e.Message)
+	return fmt.Sprintf("app error:%d|%s", e.Code, e.Message)
 }
 
 func (e *AppError) String() string {
@@ -33,12 +39,13 @@ type ErrorResponse struct {
 }
 
 type ErrorResult struct {
-	Code    string `json:"code"`
+	Code    int    `json:"code"`
 	Message string `json:"message"`
 }
 
 func NewErrorResponse(err error) ErrorResponse {
-	var code, message string
+	var code int
+	var message string
 	switch v := err.(type) {
 	case *AppError:
 		code = v.Code
