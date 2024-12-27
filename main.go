@@ -14,6 +14,7 @@ import (
 	"time"
 
 	"github.com/Ch2r1Ie/Stock-Bubble/app"
+	"github.com/Ch2r1Ie/Stock-Bubble/app/market_data"
 	"github.com/Ch2r1Ie/Stock-Bubble/config"
 	"github.com/gin-gonic/gin"
 
@@ -93,7 +94,17 @@ func router(cfg config.Config) (*gin.Engine, func()) {
 		handlerTimeoutMiddleware,
 	)
 
+	{
+		yahoo_finance := market_data.NewOpenAPI("")
+		h := market_data.NewHandler(yahoo_finance)
+
+		r.POST("/market-data/stock-info", h.StockInfo)
+	}
+
+	// add more handler here below. advice: use group using {} for better readability
+
 	return r, func() {}
+
 }
 
 func handlerTimeoutMiddleware(c *gin.Context) {
