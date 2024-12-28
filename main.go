@@ -16,6 +16,7 @@ import (
 	"github.com/Ch2r1Ie/Stock-Bubble/app"
 	"github.com/Ch2r1Ie/Stock-Bubble/app/market_data"
 	"github.com/Ch2r1Ie/Stock-Bubble/config"
+	"github.com/Ch2r1Ie/Stock-Bubble/yahoo_finance.go"
 	"github.com/gin-gonic/gin"
 
 	_ "embed"
@@ -89,16 +90,17 @@ func router(cfg config.Config) (*gin.Engine, func()) {
 	r.Use(
 		securityHeaders,
 		accessControl,
-		app.RefIDMiddleware(cfg.Header.RefIDHeaderKey),
+		// app.RefIDMiddleware(cfg.Header.RefIDHeaderKey),
 		app.AutoLoggingMiddleware,
 		handlerTimeoutMiddleware,
 	)
 
 	{
-		yahoo_finance := market_data.NewOpenAPI(cfg.YahooFinance)
-		h := market_data.NewHandler(yahoo_finance)
+		yahoo_finance := yahoo_finance.NewOpenAPI(cfg.YahooFinanceURL)
+		market_service := market_data.NewMarketService(yahoo_finance)
+		h := market_data.NewHandler(market_service)
 
-		r.POST("/market-data/stock-info", h.StockInfo)
+		r.POST("/market-data/stocks-info", h.StockInfo)
 	}
 
 	return r, func() {}

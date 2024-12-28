@@ -1,19 +1,14 @@
-package market_data
+package yahoo_finance
 
 import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"html/template"
 	"net/http"
+	"text/template"
 
 	"github.com/Ch2r1Ie/Stock-Bubble/app"
-	"go.uber.org/zap"
 )
-
-type yahooFinance interface {
-	stock(symbol, dateRange, interval string, logger *zap.Logger) (*Stock, error)
-}
 
 type openAPI struct {
 	url string
@@ -27,17 +22,17 @@ var (
 	DebugLogging = false
 )
 
-func (y *openAPI) stock(symbol, dateRange, interval string, logger *zap.Logger) (*Stock, error) {
+func (y *openAPI) Info(symbol string, dateRange, interval string) (Stock, error) {
 
-	var response *Stock
+	var stock Stock
 	resp, err := exec(symbol, dateRange, interval, y.url)
 	if err != nil {
-		return response, err
+		return stock, err
 	}
 	defer resp.Body.Close()
 
 	if resp.StatusCode != 200 {
-		return response, &app.Err_UnExpected_StatusCode
+		return stock, &app.Err_UnExpected_StatusCode
 	}
 
 	var target struct {
@@ -47,14 +42,14 @@ func (y *openAPI) stock(symbol, dateRange, interval string, logger *zap.Logger) 
 	}
 
 	if err := json.NewDecoder(resp.Body).Decode(&target); err != nil {
-		return response, err
+		return stock, err
 	}
 
 	if len(target.Chart.Result) != 1 {
-		return response, &app.Err_UnExpected_Response
+		return stock, &app.Err_UnExpected_Response
 	}
 
-	return &target.Chart.Result[0], nil
+	return target.Chart.Result[0], nil
 }
 
 func exec(symbol, dateRange, interval, url string) (*http.Response, error) {

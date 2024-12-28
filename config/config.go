@@ -9,11 +9,11 @@ import (
 )
 
 type Config struct {
-	Server        Server
-	AccessControl AccessControl
-	Database      Database
-	Header        Header
-	YahooFinance  string
+	Server          Server
+	AccessControl   AccessControl
+	Database        Database
+	Header          Header
+	YahooFinanceURL string
 }
 
 func Init() *Config {
@@ -44,7 +44,6 @@ func location(timezone string) {
 		log.Fatalf("error loading location '%s': %v\n", timezone, err)
 	}
 	time.Local = ict
-	log.Printf("Local time zone %v", time.Now().In(ict))
 }
 
 func initAppCfg(prefix string) *Config {
@@ -53,9 +52,8 @@ func initAppCfg(prefix string) *Config {
 			Hostname: os.Getenv(connected(prefix, hostname)),
 			Port:     os.Getenv(connected(prefix, port)),
 		},
-		YahooFinance: os.Getenv(connected(prefix, yahoo_finance)),
+		YahooFinanceURL: os.Getenv(connected(prefix, yahoo_finance)),
 	}
-
 }
 
 func connected(prefix, config string) string {

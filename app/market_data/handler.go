@@ -8,32 +8,28 @@ import (
 )
 
 type Handler struct {
-	yahoo yahooFinance
+	market marketSrv
 }
 
-func NewHandler(
-	yahoo yahooFinance,
-) *Handler {
-	return &Handler{
-		yahoo: yahoo,
-	}
+func NewHandler(market marketSrv) *Handler {
+	return &Handler{market: market}
 }
 
 type StockInfoRequest struct {
-	Symbol    string `json:"symbol"`
-	DateRange string `json:"dateRange"`
-	Interval  string `json:"interval"`
+	Symbol    []string `json:"symbol"`
+	DateRange string   `json:"dateRange"`
+	Interval  string   `json:"interval"`
 }
 
 func (handler *Handler) StockInfo(c *gin.Context) {
 	var request StockInfoRequest
 
 	if err := c.ShouldBindJSON(&request); err != nil {
-		c.JSON(http.StatusBadRequest, app.Response{Message: err.Error()})
+		c.JSON(http.StatusBadRequest, app.Response{Code: app.Err_BussinessErrors_2.Code, Message: app.Err_BussinessErrors_2.Message})
 		return
 	}
 
-	response, err := handler.yahoo.stock(request.Symbol, request.DateRange, request.Interval, nil)
+	response, err := handler.market.stocks(request.Symbol, request.DateRange, request.Interval)
 	if err != nil {
 		switch err {
 		case &app.Err_UnExpected_StatusCode:

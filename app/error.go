@@ -10,14 +10,14 @@ var (
 )
 
 var (
-	Err_Technical             = AppError{Code: 2000, Message: "please contact tech support"}
-	Err_UnExpected_StatusCode = AppError{Code: 2001, Message: "unexpected status code"}
-	Err_UnExpected_Response   = AppError{Code: 2002, Message: "unexpected response"}
+	Err_Technical             = AppError{Code: 2000, Message: "Please contact tech support"}
+	Err_UnExpected_StatusCode = AppError{Code: 2001, Message: "Unexpected status code from external api"}
+	Err_UnExpected_Response   = AppError{Code: 2002, Message: "Unexpected response from external api"}
 
-	Err_BussinessErrors_1 = AppError{Code: 1001, Message: "not Found"}
-	Err_BussinessErrors_2 = AppError{Code: 1004, Message: "invalid request"}
+	Err_BussinessErrors_1 = AppError{Code: 1001, Message: "Not Found"}
+	Err_BussinessErrors_2 = AppError{Code: 1004, Message: "Invalid data"}
 
-	Err_Unknown = AppError{Code: 9999, Message: "please contact admin"}
+	Err_Unknown = AppError{Code: 9999, Message: "Please contact admin"}
 )
 
 type AppError struct {
