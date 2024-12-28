@@ -19,12 +19,15 @@ func (s *marketService) stocks(symbols []string, dateRange, interval string) (*[
 	var stock_infos []yahoo_finance.Info
 	for _, symbol := range symbols {
 
-		stock_info, err := s.stock.Info(symbol, dateRange, interval)
-		if err != nil {
-			return nil, err
+		if symbol != "" {
+			stock_info, err := s.stock.Info(stock_symbols_input[symbol], dateRange, interval)
+			if err != nil {
+				return nil, err
+			}
+
+			stock_infos = append(stock_infos, format_response(stock_info))
 		}
 
-		stock_infos = append(stock_infos, format_response(stock_info))
 	}
 
 	return &stock_infos, nil

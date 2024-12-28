@@ -43,7 +43,7 @@ func (t *TestServiceSuite) TearDownTest() {
 
 func (s *TestServiceSuite) Test_Service_happyCase() {
 
-	symbols := []string{"PTTGC.BK", "GPSC.BK"}
+	symbols := []string{"PTTGC", "GPSC"}
 	daterange := yahoo_finance.RangeOneYear
 	interval := yahoo_finance.IntervalOneDay
 
@@ -112,7 +112,7 @@ func (s *TestServiceSuite) Test_Service_happyCase() {
 
 func (s *TestServiceSuite) Test_Service_failCase() {
 
-	symbols := []string{"PTTGC.BK", "GPSC.BK"}
+	symbols := []string{"PTTGC", "GPSC"}
 	daterange := yahoo_finance.RangeOneYear
 	interval := yahoo_finance.IntervalOneDay
 
@@ -144,5 +144,4 @@ func (s *TestServiceSuite) Test_Service_failCase() {
 
 	s.Equal(err, errors.New("unknown errors"))
 	s.Nil(infos)
-
 }

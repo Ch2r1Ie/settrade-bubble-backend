@@ -58,9 +58,9 @@ type TradingPeriod struct {
 type Info struct {
 	Symbol           string `json:"symbol"`
 	Currency         string `json:"currency"`
+	InstrumentType   string `json:"instrumentType"`
 	ExchangeName     string `json:"exchangeName"`
 	ExchangeTimezone string `json:"exchangeTimezone"`
-	InstrumentType   string `json:"instrumentType"`
 	FirstTradeDate   string `json:"firstTradeDate"`
 	Price            Price  `json:"price"`
 }
