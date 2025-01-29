@@ -54,23 +54,3 @@ type TradingPeriod struct {
 	Start     int64
 	GmtOffset int64 `json:"gmtoffset"`
 }
-
-type Info struct {
-	Symbol           string `json:"symbol"`
-	Currency         string `json:"currency"`
-	InstrumentType   string `json:"instrumentType"`
-	ExchangeName     string `json:"exchangeName"`
-	ExchangeTimezone string `json:"exchangeTimezone"`
-	FirstTradeDate   string `json:"firstTradeDate"`
-	Price            Price  `json:"price"`
-}
-
-type Price struct {
-	High             float64 `json:"high"`
-	Low              float64 `json:"low"`
-	Volume           float64 `json:"volume"`
-	Open             float64 `json:"open"`
-	Close            float64 `json:"close"`
-	PercentageChange float64 `json:"percentageChange"`
-	Timestamp        string  `json:"timestamp"`
-}
